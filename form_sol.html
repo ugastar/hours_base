@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load meus_filtros %}
+
+{% block conteudo %}
+
+<form method="post">
+    {% csrf_token %}
+    <p></p>
+
+    <div class ="form-group">
+        <label><strong>Data Inicial:</strong></label>
+        {{ form_sol.startdate }}
+    </div>
+
+    <div class ="form-group">
+        <label><strong>Data Final:</strong></label>
+        {{ form_sol.endate }}
+    </div>
+
+    <div>
+       <label><strong>Total de Horas: </strong> </label>
+       <input type="text" id="result" readonly="readonly" />
+    </div>
+
+    <div class ="form-group">
+        <label><strong>Justificativa:</strong></label>
+        {{ form_sol.justificate }}
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Enviar">
+    </div>
+
+</form>
+
+<script>
+
+        function calculaDiferenca(dataInicial,dataFinal) {
+             var date1 = new Date(dataInicial);
+             var date2 = new Date(dataFinal);
+             var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+             var diffDays = Math.ceil(timeDiff / (1000 * 60 * 60));
+
+             document.getElementById('result').value = (diffDays+" Hora(s)");
+             alert(id_startdate.typeof);
+             //alert(diffDays + ' dias');
+        }
+
+        (function() {
+             var dataFinal = document.getElementById('id_endate');
+             dataFinal.addEventListener('blur', function() {
+    	     var dataInicial = document.getElementById('id_startdate').value;
+
+              if(!dataInicial) {
+        	    alert('Informe a data inicial e depois a final!');
+                return;
+              }
+
+             var dataFinal = document.getElementById('id_endate').value;
+
+        calculaDiferenca(dataInicial, dataFinal);
+    });
+
+    })();
+
+</script>
+
+{% endblock conteudo %}
